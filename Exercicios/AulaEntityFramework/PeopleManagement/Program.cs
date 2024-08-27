@@ -1,4 +1,14 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using PeopleManagement.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+var connString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+
+builder.Services.AddDbContext<MyDbContext>(
+    options => options.UseSqlServer(connString)
+    );
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -1,8 +1,8 @@
-using _16_08_AulaEntityFramework.Models;
 using Microsoft.AspNetCore.Mvc;
+using PeopleManagement.Models;
 using System.Diagnostics;
 
-namespace _16_08_AulaEntityFramework.Controllers
+namespace PeopleManagement.Controllers
 {
     public class HomeController : Controller
     {
@@ -13,13 +13,11 @@ namespace _16_08_AulaEntityFramework.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
 
-        [HttpGet]
         public IActionResult Privacy()
         {
             return View();

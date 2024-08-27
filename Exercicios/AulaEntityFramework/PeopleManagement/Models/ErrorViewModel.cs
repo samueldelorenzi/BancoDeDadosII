@@ -1,4 +1,4 @@
-namespace _16_08_AulaEntityFramework.Models
+namespace PeopleManagement.Models
 {
     public class ErrorViewModel
     {
