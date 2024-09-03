@@ -1,12 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace PeopleManagement.Models
+namespace ItemCategory.Models
 {
     public class MyDbContext : DbContext
     {
         public MyDbContext(DbContextOptions<MyDbContext> options) : base(options) { }
-
-        public DbSet<Person> People { get; set; }
-        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }
