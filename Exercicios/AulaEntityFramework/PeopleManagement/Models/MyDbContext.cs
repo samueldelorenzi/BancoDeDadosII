@@ -8,5 +8,7 @@ namespace PeopleManagement.Models
 
         public DbSet<Person> People { get; set; }
         public DbSet<Address> Addresses { get; set; }
+        public DbSet<Team> Teams { get; set; }
+        public DbSet<TeamPerson> TeamPeople { get; set; }
     }
 }

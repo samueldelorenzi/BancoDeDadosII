@@ -1,19 +1,11 @@
+using CompeteSync.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using PeopleManagement.Models;
-using PeopleManagement.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connString = builder.Configuration["ConnectionStrings:DefaultConnection"];
+var connectionString = builder.Configuration["ConnectionStrings:DefaultConnection"];
 
-// fazemos a configuracao do dbcontexto com o banco de dados especifico
-builder.Services.AddDbContext<MyDbContext>(
-    options => options.UseSqlServer(connString)
-    );
-
-// registro dos servicos relacionados a camada de acesso ao repositorio de dados
-builder.Services.AddScoped<IPersonRepository, PersonRepository>();
+builder.Services.AddDbContext<MyDbContext>(options => options.UseSqlServer(connectionString));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

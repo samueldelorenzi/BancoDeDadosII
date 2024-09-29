@@ -6,28 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PeopleManagement.Models;
-using PeopleManagement.Repository;
 
 namespace PeopleManagement.Controllers
 {
-    public class PeopleController : Controller
+    public class TeamsController : Controller
     {
         private readonly MyDbContext _context;
-        private IPersonRepository _personRepository;
 
-        public PeopleController(MyDbContext context, IPersonRepository personRepository)
+        public TeamsController(MyDbContext context)
         {
             _context = context;
-            _personRepository = personRepository;
         }
 
-        // GET: People
-        public IActionResult Index()
+        // GET: Teams
+        public async Task<IActionResult> Index()
         {
-            return View(_personRepository.GetAll());
+            return View(await _context.Teams.ToListAsync());
         }
 
-        // GET: People/Details/5
+        // GET: Teams/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,39 +32,39 @@ namespace PeopleManagement.Controllers
                 return NotFound();
             }
 
-            var person = await _context.People
+            var team = await _context.Teams
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (person == null)
+            if (team == null)
             {
                 return NotFound();
             }
 
-            return View(person);
+            return View(team);
         }
 
-        // GET: People/Create
+        // GET: Teams/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: People/Create
+        // POST: Teams/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Age,Email")] Person person)
+        public async Task<IActionResult> Create(Team team)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(person);
+                _context.Add(team);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(person);
+            return View(team);
         }
 
-        // GET: People/Edit/5
+        // GET: Teams/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +72,22 @@ namespace PeopleManagement.Controllers
                 return NotFound();
             }
 
-            var person = await _context.People.FindAsync(id);
-            if (person == null)
+            var team = await _context.Teams.FindAsync(id);
+            if (team == null)
             {
                 return NotFound();
             }
-            return View(person);
+            return View(team);
         }
 
-        // POST: People/Edit/5
+        // POST: Teams/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Age,Email")] Person person)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name")] Team team)
         {
-            if (id != person.Id)
+            if (id != team.Id)
             {
                 return NotFound();
             }
@@ -99,12 +96,12 @@ namespace PeopleManagement.Controllers
             {
                 try
                 {
-                    _context.Update(person);
+                    _context.Update(team);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PersonExists(person.Id))
+                    if (!TeamExists(team.Id))
                     {
                         return NotFound();
                     }
@@ -115,10 +112,10 @@ namespace PeopleManagement.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(person);
+            return View(team);
         }
 
-        // GET: People/Delete/5
+        // GET: Teams/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,34 +123,34 @@ namespace PeopleManagement.Controllers
                 return NotFound();
             }
 
-            var person = await _context.People
+            var team = await _context.Teams
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (person == null)
+            if (team == null)
             {
                 return NotFound();
             }
 
-            return View(person);
+            return View(team);
         }
 
-        // POST: People/Delete/5
+        // POST: Teams/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var person = await _context.People.FindAsync(id);
-            if (person != null)
+            var team = await _context.Teams.FindAsync(id);
+            if (team != null)
             {
-                _context.People.Remove(person);
+                _context.Teams.Remove(team);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool PersonExists(int id)
+        private bool TeamExists(int id)
         {
-            return _context.People.Any(e => e.Id == id);
+            return _context.Teams.Any(e => e.Id == id);
         }
     }
 }
