@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompeteSync.Models
 {
@@ -8,23 +9,12 @@ namespace CompeteSync.Models
 
         [Required(ErrorMessage = "Required")]
         public required DateTime Date { get; set; }
-
-        [Required(ErrorMessage = "Required")]
-        public required List<Team> Teams { get; set; }
-
-        [Required(ErrorMessage = "Required")]
-        public required Team Winner { get; set; }
-
-        public int? Points { get; set; }
-
-        public Stage? Stage { get; set; }
-    }
-    public enum Stage
-    {
-        Groups,
-        EighthFinals,
-        Quarterfinals,
-        Semifinals,
-        Final
+        [ForeignKey("Opponent1Id")]
+        public required int Opponent1Id { get; set; }
+        [ForeignKey("Opponent2Id")]
+        public required int Opponent2Id { get; set; }
+        public required int StageId { get; set; }
+        [ForeignKey("ResultId")]
+        public required int ResultId { get; set; }
     }
 }

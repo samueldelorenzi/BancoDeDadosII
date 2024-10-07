@@ -6,16 +6,19 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using PeopleManagement.Models;
+using PeopleManagement.Repository;
 
 namespace PeopleManagement.Controllers
 {
     public class AddressesController : Controller
     {
         private readonly MyDbContext _context;
+        private IPersonRepository _personRepository;
 
-        public AddressesController(MyDbContext context)
+        public AddressesController(MyDbContext context, IPersonRepository personRepository)
         {
             _context = context;
+            _personRepository = personRepository;
         }
 
         // GET: Addresses

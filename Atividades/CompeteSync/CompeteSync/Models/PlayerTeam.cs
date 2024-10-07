@@ -5,6 +5,7 @@ namespace CompeteSync.Models
 {
     public class PlayerTeam
     {
+        public int Id { get; set; }
         [ForeignKey("Player")]
         public required int PlayerId { get; set; }
 

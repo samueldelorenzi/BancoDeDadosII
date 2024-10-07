@@ -12,12 +12,10 @@ namespace PeopleManagement.Controllers
 {
     public class PeopleController : Controller
     {
-        private readonly MyDbContext _context;
         private IPersonRepository _personRepository;
 
         public PeopleController(MyDbContext context, IPersonRepository personRepository)
         {
-            _context = context;
             _personRepository = personRepository;
         }
 
@@ -35,8 +33,7 @@ namespace PeopleManagement.Controllers
                 return NotFound();
             }
 
-            var person = await _context.People
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var person = _personRepository.Get(id.Value);
             if (person == null)
             {
                 return NotFound();
@@ -60,8 +57,7 @@ namespace PeopleManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(person);
-                await _context.SaveChangesAsync();
+                _personRepository.Insert(person);
                 return RedirectToAction(nameof(Index));
             }
             return View(person);
@@ -75,7 +71,7 @@ namespace PeopleManagement.Controllers
                 return NotFound();
             }
 
-            var person = await _context.People.FindAsync(id);
+            var person = _personRepository.Get(id.Value);
             if (person == null)
             {
                 return NotFound();
@@ -99,8 +95,7 @@ namespace PeopleManagement.Controllers
             {
                 try
                 {
-                    _context.Update(person);
-                    await _context.SaveChangesAsync();
+                    _personRepository.Update(person);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -126,8 +121,7 @@ namespace PeopleManagement.Controllers
                 return NotFound();
             }
 
-            var person = await _context.People
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var person = _personRepository.Get(id.Value);
             if (person == null)
             {
                 return NotFound();
@@ -139,21 +133,20 @@ namespace PeopleManagement.Controllers
         // POST: People/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int? id)
         {
-            var person = await _context.People.FindAsync(id);
+            var person = _personRepository.Get(id.Value);
             if (person != null)
             {
-                _context.People.Remove(person);
+                _personRepository.Delete(person.Id);
             }
 
-            await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool PersonExists(int id)
         {
-            return _context.People.Any(e => e.Id == id);
+            return _personRepository.PersonExists(id);
         }
     }
 }

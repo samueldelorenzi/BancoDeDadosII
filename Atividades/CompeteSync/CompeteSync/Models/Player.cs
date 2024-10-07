@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CompeteSync.Models
 {
@@ -10,16 +11,10 @@ namespace CompeteSync.Models
         public required string Name { get; set; }
 
         [Required(ErrorMessage = "Required")]
-        public required Gender Gender { get; set; }
+        [ForeignKey("GenderId")]
+        public required int GenderId { get; set; }
 
         [Required(ErrorMessage = "Required")]
         public required DateOnly BirthDate { get; set; }
-    }
-
-    public enum Gender
-    {
-        Male,
-        Female,
-        Other
     }
 }
