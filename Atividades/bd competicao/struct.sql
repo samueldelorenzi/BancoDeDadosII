@@ -1,30 +1,36 @@
+drop database if exists bd_competicao;
+
+create database bd_competicao;
+
+use bd_competicao;
+
 create table modalidade (
     id_modalidade int primary key,
-    nome_modalidade varchar(100),
+    nome_modalidade varchar(255),
     tipo enum('Individual', 'Equipe')
 );
 
 create table equipe (
     id_equipe int primary key,
-    nome_equipe varchar(100),
-    pais_origem varchar(50),
+    nome_equipe varchar(255),
+    pais_origem varchar(255),
     id_modalidade int,
     foreign key (id_modalidade) references modalidade(id_modalidade)
 );
 
 create table atleta (
     id_atleta int primary key,
-    nome varchar(100),
+    nome varchar(255),
     idade int,
     genero char(1),
-    pais_origem varchar(50),
+    pais_origem varchar(255),
     id_modalidade int,
     foreign key (id_modalidade) references modalidade(id_modalidade)
 );
 
 create table torneio (
     id_torneio int primary key,
-    nome_torneio varchar(100),
+    nome_torneio varchar(255),
     data_inicio date,
     data_fim date,
     formato enum('Grupos', 'Pontos Corridos')
@@ -32,14 +38,14 @@ create table torneio (
 
 create table fase_torneio (
     id_fase int primary key,
-    nome_fase varchar(50),
+    nome_fase varchar(255),
     id_torneio int,
     foreign key (id_torneio) references torneio(id_torneio)
 );
 
 create table grupo (
     id_grupo int primary key,
-    nome_grupo varchar(50),
+    nome_grupo varchar(255),
     id_fase int,
     foreign key (id_fase) references fase_torneio(id_fase)
 );
