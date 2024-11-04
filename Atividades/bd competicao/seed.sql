@@ -40,9 +40,9 @@ insert into participacao (id_participacao, id_torneio, id_fase, id_grupo, id_atl
 insert into participacao (id_participacao, id_torneio, id_fase, id_grupo, id_atleta, pontos_acumulados) values (2, 2, 1, null, 2, 0);
 insert into participacao (id_participacao, id_torneio, id_fase, id_grupo, id_atleta, pontos_acumulados) values (3, 3, 2, null, 3, 0);
 insert into participacao (id_participacao, id_torneio, id_fase, id_grupo, id_atleta, pontos_acumulados) values (4, 1, 1, null, 4, 0);
-insert into participacao (id_participacao, id_torneio, id_fase, id_grupo, id_equipe, pontos_acumulados) values (5, 3, 1, 1, null, 0);
+insert into participacao (id_participacao, id_torneio, id_fase, id_grupo, id_equipe, pontos_acumulados) values (5, 3, 1, 1, 1, 0);
 insert into participacao (id_participacao, id_torneio, id_fase, id_grupo, id_atleta, pontos_acumulados) values (6, 2, 1, null, 6, 5);
-insert into participacao (id_participacao, id_torneio, id_fase, id_grupo, id_equipe, pontos_acumulados) values (7, 1, 1, 2, null, 4);
+insert into participacao (id_participacao, id_torneio, id_fase, id_grupo, id_equipe, pontos_acumulados) values (7, 1, 1, 2, 2, 4);
 
 insert into pontuacao (id_pontuacao, id_grupo, id_atleta, pontos_total) values (1, 1, 1, 3);
 insert into pontuacao (id_pontuacao, id_grupo, id_equipe, pontos_total) values (2, 1, 1, 3);
